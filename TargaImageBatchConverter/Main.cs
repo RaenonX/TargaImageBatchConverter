@@ -34,11 +34,6 @@ namespace TargaImageBatchConverter
             BGW.ProgressChanged += BGW_ProgressChanged;
         }
 
-        private void Merge_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void BGW_DoWork(object sender, DoWorkEventArgs e)
         {
             bool ReplaceFlag = false, NameDiffFlag = false;
@@ -98,7 +93,7 @@ namespace TargaImageBatchConverter
             } else
             {
                 ProgressText.Text = e.UserState.ToString();
-                Progress.Value = e.ProgressPercentage;
+                Progress.PerformStep();
             }
         }
 
@@ -112,6 +107,7 @@ namespace TargaImageBatchConverter
         {
             Convert.Enabled = false;
             Progress.Value = 0;
+            Progress.Maximum = PendingFile.Items.Count;
             BGW.RunWorkerAsync();
         }
 
